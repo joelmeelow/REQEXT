@@ -1,0 +1,60 @@
+{% extends 'copy.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+        <div id="" class=" bg-gray-100 relative h-[150px] w-full sm:border-y-2 sticky top-0 z-50 mb-[15px] sm:mb-[30px] ">
+            <nav id="nav" class="  flex flex-row p-[15px] mb-[50px] h-[68px] sm:h-[150px] ">
+                <ul class="flex flex-row justify-between w-full">
+                    <a href="{% url 'patients:index' %}"><li class="w-[100px] text-[17px] sm:text-[25px] ml-[15px] ">REQEXT</li></a>
+                    
+                </ul>
+            
+            </nav>
+            
+            
+        
+        </div>
+        <div class=" w-full sm:w-1/2 my-6 mx-auto p-6 rounded-xl h-screen">
+            <h1 class="mb-6 text-3xl text-center">signup non-pharmacist</h1>
+
+            <form  class="h-screen" method="post" action="{% url 'patients:signup' %}">
+                <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="text" name="name" id="name" placeholder="firstname">
+                <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="text" name="username" id="username" placeholder="enter username">
+                <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="email" name="email" id="email" placeholder="enter email">
+                <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="password" name="password" id="passwordnew2" placeholder="enter password">
+                {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="flex justify-between w-full mt-[15px] mb-[15px]">
+                    <div>
+                        <input type="checkbox" onclick="myFunction()">Show Password
+                    </div>
+                    <a href=""><h4></h4></a>
+                </div>
+                <button class="py-4 px-8 text-lg bg-teal-700 rounded-xl text-white w-full mt-[10px]">signup</button>
+                <a href="{% url 'patients:login' %}"><p class="mt-[13px]">you have an account?<span id="dropdown33" class="hover">login</span></p></a>
+            </form>
+            
+        </div>
+        <script type="text/javascript">
+           
+
+            function myFunction() {
+            var x = document.getElementById("passwordnew2");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            }
+
+    
+                    </script>
+{% endblock %}

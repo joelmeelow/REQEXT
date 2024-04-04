@@ -1,0 +1,156 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>pharm_care</title>
+        <link rel="stylesheet" href="{% static 'patients/css/style.css' %}"/>
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body id="bodii" class="relative bg-white">
+            <div id="" class=" bg-gray-100 relative h-[150px] w-full sm:border-y-2 sticky top-0 z-50 mb-[15px] sm:mb-[30px] ">
+                <nav id="nav" class="  flex flex-row p-[15px] mb-[50px] h-[68px] sm:h-[150px] ">
+                    <ul class="flex flex-row justify-between w-full">
+                        <a href="{% url 'patients:index' %}"><li class="w-[100px] text-[17px] sm:text-[25px] ml-[15px] ">REQEXT</li></a>
+                        <div class="grow flex flex-row justify-end gap-[12px] mr-[10px] ">
+                            {% if request.user.is_authenticated %}
+                               <a href="{% url 'patients:logout' %}"><li>logout</li></a>
+                            {% else %}
+                            <div class=" flex flex-col justify-center  items-center content-center  w-[150px] h-[100px] relative border-solid ">
+                                    
+                                <li id="signup" class="bg-white absolute top-0 rounded-lg p-[5px] pl-[5px] mt-[0] w-[60px] cursor-pointer">signup</li>
+                                <div id="dropdown" class=" absolute top-[35px] gap-y-0.5 hidden z-100 w-full h-[80px] align-center flex flex-col justify-center content-center items-center gap-[5px] rounded-lg border-y-2">
+                                    <div class="bg-white p-[7px] rounded-lg ">
+                                        <a href="{% url 'patients:signup' %}"><P class="text-[15px] text-center">Non-pharmacist</P></a>
+                                    </div>
+                                    <div class="bg-white p-[7px] rounded-lg mt-[2px]">
+                                        <a href="{% url 'patients:pharmverify' %}"><p class="text-[15px] text-center">pharmacist</p></a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a href="{% url 'patients:login' %}"><li class="bg-white  rounded-lg p-[5px]  mt-[0] w-[60px] cursor-pointer text-center">login</li></a>
+                            {% endif %}
+                            <li class="pt-[8px] "><img src="{% static 'patients/imgs/fvv.png' %}" alt="imgs"></li>
+                            <li class="flex sm:hidden"><img  id="search_control"  src="" ></li>
+                            
+                        </div>
+                    
+                    </ul>
+                
+                </nav>
+                
+                
+             
+            </div>
+            
+            <div id="bodi" class="flex flex-col justify-center items-center   ">
+                <div  class=" w-[300px] height-[300px]  flex flex-row justify-center items-center ">
+                    <div class=" w-full  flex flex-row justify-center items-center">
+                        <img class="w-[100px] h-[100px] sm:w-[200px] sm:h-[200px]" src="{% static 'patients/imgs/immma.jpg' %}" width="200px" height="200px">
+                        
+                    </div>
+                    
+                    
+                
+                </div>
+                <div class=" flex flex-col content-center  pl-[15px] pr-[15px]  items-center w-full mr-[10px] ml-[10px] mt-[10px] sm:ml-[18px] sm:p-[18px]">
+                    
+                    <div id="" class=" ml-[0px] w-full h-[200px] rounded-lg border-y-2 pl-[15px] pr-[15px]  sm:w-[650px] gap-y-1.5 flex flex-col content-center justify-center items-center mt-[10px] ">
+                        
+                        <form class=" flex flex-col content-center items-center w-full  bg-white outline-none  rounded-full" method="POST" action="{% url 'patients:search' %}">
+                            <input class="bg-transparent border-none outline-none w-full p-[10px]" type="text" name="searchpharm" id="search_idan" {% if request.user.is_authenticated %} placeholder="search pharmacist" {% else %} placeholder="login to search for pharmacist" {% endif %}>
+                            
+                            
+                            <button class="text-[10px] sm:text-[15px] text-white  bg-gray-600 p-[10px] rounded-lg mt-[18px] ">
+                                <span class=" ">
+                                    CHAT WITH YOUR PHARMACISTS
+                                </span>
+                            </button>
+                        </form>
+                            
+                        <div class="mt-[7px]  w-full text-center text-[9px] sm:text-[11] ">
+                            
+                            <P  class="text-slate-500 ">Interact, ask and consult your pharmacists</P>
+                        </div>
+                    </div>
+                  
+                </div>
+               
+            
+            </div>
+            <div class="w-full flex flex-row justify-center items-center">
+                <div class=" grid grid-col-1 p-[15px] sm:p-[25px] sm:grid-cols-3  align-center gap-4 w-full sm:w-3/4 justify-center content-center items-center mt-[120px] pl-[15px] pr-[15px]">
+                    {% for box in boxes %}
+                    <div id="" class=" rounded-lg p-[15px] bg-gray-100 text-center h-[85px] p-[12px] hover:bg-slate-400 ">
+                        <p>{{ box.details }}</p>
+                    </div>
+                    {% endfor %}
+            
+                    
+                </div>
+            </div>
+            {% if request.user.is_authenticated %}
+            <div class="w-full bg-gray-100 h-[50px] text-center">
+                <p class="text-[18px] text-slate-700 text-cenetr block w-full">chat with your pharmacist</p>
+            
+            </div>
+            
+            <div id ="identity" class=" mt-[15px]  sm:mr-[0] w-full sm:w-[1300px] flex flex-row justify-center gap-y-2  flex-wrap ">
+            {% for names in name %}
+            
+                
+                <div  class="flex flex-col content-center bg-white border-2 border-gray-500 w-[165px] h-[250px] sm:h-[250px] ml-[13px]  rounded-lg ">
+                    <div>
+                        <img class="w-full" src="{% static 'patients/imgs/dddd.png' %}" alt="pics">
+
+                    </div>
+                    <div class="  w-full p-[3px]">
+                        <p class="text-center  w-full p-[5px] mt-[5px] rounded-lg bg-slate-600">{{ names.username }}</p>
+                        <p class="text-center w-full p-[5px] mt-[5px] rounded-lg bg-slate-600">{{ names.title }}</p>
+                        <a class=" " href="/care/inbox/{{ names.id }}/"><button class="mt-[7px] {% if pharms.created_by == request.user %} {% else %} hidden {% endif %}  bg-gray-400 rounded-lg p-[5px]">inbox</button></a>
+                    </div>
+                    <form class=" pl-[3px] pr-[3px] {% if pharms.created_by == request.user %} hidden {% else %} block {% endif %}" action="care/phar/{{ names.id }}/" method="POST">
+                        
+                        <input type="hidden" name="username" value="{{ names.name }}">
+                        <button class="text-center w-full p-[5px] mt-[5px] rounded-lg bg-slate-600">chat with</button>
+                    </form>
+                </div>
+                
+                
+
+
+            {% endfor %}
+        
+            {% else %} 
+            {% endif %}
+            <footer class="bg-black  w-full mt-[70px] h-[500px]">
+                <nav class="w-full flex flex-col sm:flex-row sm:justify-evenly text-white gap-[35px] ml-[20px]">
+                    <ul class="w-[220px] flex flex-col gap-[10px] sm:mt-[150px]">
+                        <li class="text-[22px]">REQEXT</li>
+                        <li>Machine Learning</li>
+                        <li>Software Development</li>
+                    </ul>
+                    <ul class="w-[220px] flex flex-col gap-[10px] sm:mt-[150px]">
+                        <li class="text-[22px]">ABOUT US</li>
+                        <li>Consulting</li>
+                        <li>Drug deivery</li>
+                        <li>Pharmaceutical care</li>
+                    </ul>
+                    <ul class="flex flex-row  sm:mt-[150px] sm:mr-[20px] gap-[10px] sm:gap-[50px]">
+                        <li><img  src="{% static 'patients/imgs/gggggf.png' %}" width="37px" height="37px" alt="instagram"></li>
+                        <li><img src="{% static 'patients/imgs/Gmail.png' %}"  width="37px" height="37px" alt=""></li>
+                        <li><img src="{% static 'patients/imgs/LinkedIn.png' %}"  width="37px" height="37px" alt=""></li>
+                    </ul>
+                </nav>
+            </footer>
+
+
+
+
+        
+       
+    </body>
+</html>
