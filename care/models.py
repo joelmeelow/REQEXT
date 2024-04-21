@@ -8,7 +8,7 @@ class Pharmmodels(models.Model):
     title = models.CharField(max_length=200)
     username = models.CharField(max_length=15, default=None)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    pharm_image = models.ImageField(null=True, blank=True, upload_to='images/')
+    #pharm_image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     def __str__(self):
         return 'pharm_models'

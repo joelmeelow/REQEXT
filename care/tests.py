@@ -48,15 +48,29 @@ class TestCareView(TestCase):
 
     def test_get_views(self):
         self.client.login(username='testuser', password='password')
-        response = self.client.get(f'/care/{self.pharmconverse.id}')
-        self.assertEqual(response.status_code, 301)
+        f = PharmConverse.objects.get(patient=self.user)
+        self.assertEqual(PharmConverse.objects.count(), 1)
+        response = self.client.get(reverse('patients:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'patients/index.html')
+        
+        #response = self.client.get(reverse('care:index', kwargs={'id':f.id}))
+        #self.assertEqual(response.status_code, 301)
         #self.assertTemplateUsed(response, 'patients/login.html' )
+    def test_view(self):
+        self.client.login(username='testuser', password='password')
+        response = self.client.get(reverse('patients:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'patients/index.html')
+        print('joyous')
 
     def test_login_test_view(self):
         self.client.login(username='testuser', password='password')
         response = self.client.get(f'/care/{self.pharmconverse.id}')
         self.assertEquals(response.status_code, 301)
+        print('hey')
         #self.assertTemplateUsed(response, 'care/index.html')
         #self.assertEqual(response.context['pharmconverse'].Item.name, 'joel')
         
-
+   
+        
