@@ -1,0 +1,15 @@
+name: testing
+on: 
+  push:
+    branches:
+      - master
+      - develop
+jobs:
+  test_project:
+      runs-on: Ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - uses: run Django unit test
+        run: pip3 install -user django
+             pip install -r requirements.txt
+             python3 manage.py test
