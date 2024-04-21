@@ -9,7 +9,8 @@ jobs:
       runs-on: Ubuntu-latest
       steps:
       - uses: actions/checkout@v2
-      - uses: run Django unit test
-        run: pip3 install -user django
+      - name: run Django unit test
+        run: |
+             pip3 install -user django
              pip install -r requirements.txt
              python3 manage.py test
