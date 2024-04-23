@@ -5,14 +5,17 @@ on:
       - master
       - develop
 jobs:
-  runs-on: Ubuntu-latest 
-  steps:
-  - uses: actions/checkout@v2   
-  - name: run Django unit test
-    run: | 
-      pip3 install -user django
-      pip install -r requirements.txt
-      python3 manage.py test
-      
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: django unit test
+      run: |
+        pip3 install -user django
+        pip install -r requirements.txt
+        python3 manage.py test
+        
+
       
         
