@@ -6,13 +6,13 @@ on:
       - develop
 jobs:
   test:
+    name: django unit test
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: django unit test
-    - run: pip3 install -user django
-    - run: pip install -r requirements.txt
-    - run: python3 manage.py test
+      - uses: actions/checkout@v2
       
+      - run: pip3 install -user django
+      - run: pip install -r requirements.txt
+      - run: python3 manage.py test
         
