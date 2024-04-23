@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - master
-      
+
 
 jobs:
   test:
-    name: django unit test
+    
     runs-on: ubuntu-latest
 
     steps:
