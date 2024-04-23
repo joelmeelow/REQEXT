@@ -7,10 +7,10 @@ on:
 jobs:
   test_project:
     runs-on: Ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: run Django unit test
-      run: |
+    - steps:
+        uses: actions/checkout@v2
+        name: run Django unit test
+        run: |
           pip3 install -user django
           pip install -r requirements.txt
-            python3 manage.py test
+          python3 manage.py test
