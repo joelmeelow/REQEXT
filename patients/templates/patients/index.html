@@ -9,8 +9,8 @@
         <link rel="icon" href="./favicon.ico" type="image/x-icon">
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body id="bodii" class="relative bg-white">
-            <div id="" class=" bg-gray-100 relative h-[150px] w-full sm:border-y-2 sticky top-0 z-50 mb-[15px] sm:mb-[30px] ">
+    <body id="bodii" class="relative bg-blue-50">
+            <div id="" class=" bg-blue-700 relative h-[150px] w-full sm:border-y-2 sticky top-0 z-50 mb-[15px] sm:mb-[30px] text-white ">
                 <nav id="nav" class="  flex flex-row p-[15px] mb-[50px] h-[68px] sm:h-[150px] ">
                     <ul class="flex flex-row justify-between w-full">
                         <li class="w-[100px] text-[17px] sm:text-[25px] ml-[15px] ">REQEXT</li>
@@ -61,7 +61,7 @@
                     <div id="" class=" ml-[0px] w-full h-[200px] rounded-lg border-y-2 pl-[15px] pr-[15px]  sm:w-[650px] gap-y-1.5 flex flex-col content-center justify-center items-center mt-[10px] ">
                         
                         <form class="flex flex-col content-center items-center  w-full  bg-white outline-none  rounded-full" method="POST" action="{% url 'patients:search' %}">
-                            <input class="bg-transparent border-none outline-none w-full p-[10px]" type="text" name="searchpharm" id="search_idan" {% if request.user.is_authenticated %} placeholder="search pharmacist" {% else %} placeholder="login to search for pharmacist" {% endif %}>
+                            <input class="bg-transparent border-none outline-none w-full p-[10px] text-center" type="text" name="searchpharm" id="search_idan" {% if request.user.is_authenticated %} placeholder="search pharmacist" {% else %} placeholder="login to search for pharmacist" {% endif %}>
                             
                         
                             <button class="text-[10px] sm:text-[15px] text-white  bg-gray-600 p-[10px] rounded-lg mt-[18px] ">

@@ -31,7 +31,7 @@ from . tokens import generate_token
 
 def index(request):
         boxes = Boxes.objects.all()
-        pharm = Pharmmodels.objects.all()
+        pharm = Pharmmodels.objects.all()[1:10]
         current_user = request.user
         username = current_user.username
         return render(request, 'patients/index.html', {'pharm': pharm, 'boxes': boxes})
