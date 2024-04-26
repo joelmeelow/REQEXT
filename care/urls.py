@@ -11,5 +11,6 @@ urlpatterns = [
     path('send/', views.send, name="send"),
    
     path('getMessages/<str:pk>/', views.getMessages, name='getMessages'),
+    path('messageapi/', views.messageapi, name="massageapi")
    
 ]

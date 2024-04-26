@@ -30,11 +30,30 @@ from . tokens import generate_token
 # Create your views here.
 
 def index(request):
-        boxes = Boxes.objects.all()
-        pharm = Pharmmodels.objects.all()[1:10]
-        current_user = request.user
-        username = current_user.username
-        return render(request, 'patients/index.html', {'pharm': pharm, 'boxes': boxes})
+    '''
+    details = "Talk to your pharmacist about your medications"  
+    detail2 = "Monitor your vitals in the community pharmacy near you"
+    detail3 = "Pharmacist are always accessible, talk to one today"
+    
+    box1 = Boxes.objects.create(details=details)
+    box2 = Boxes.objects.create(details=detail2)
+    box3 = Boxes.objects.create(details=detail3)
+   
+    detail4 = "Talk to your pharmacist about your sexual health today"
+    detail5 = "Talk to your pharmacist before using those skincare products"
+    detail6 = "Make sure you ask your pharmacist all drug related questions before leaving the pharmacy"
+    box4 = Boxes.objects.create(details=detail4)
+    box5 = Boxes.objects.create(details=detail5)
+    box6 = Boxes.objects.create(details=detail6)
+     '''
+    boxes = Boxes.objects.all()
+    
+    
+
+    pharm = Pharmmodels.objects.all()[1:10]
+    current_user = request.user
+    username = current_user.username
+    return render(request, 'patients/index.html', {'pharm': pharm, 'boxes': boxes})
 
 @csrf_exempt    
 def signup(request):

@@ -5,6 +5,17 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 import json
+from rest_framework.decorators import api_view
+from .serializer import MessageSerializer
+
+  
+@csrf_exempt
+@api_view(['POST', 'GET'])
+def messageapi(request):
+    if request.method == 'GET':
+        queryset = PharmMessages.objects.all()
+        serializer = MessageSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
 
 @csrf_exempt
