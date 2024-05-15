@@ -50,7 +50,7 @@ def index(request):
     
     
 
-    pharm = Pharmmodels.objects.all()[1:10]
+    pharm = Pharmmodels.objects.all()
     current_user = request.user
     username = current_user.username
     return render(request, 'patients/index.html', {'pharm': pharm, 'boxes': boxes})
