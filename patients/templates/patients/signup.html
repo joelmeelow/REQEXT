@@ -21,6 +21,7 @@
             <h1 class="mb-6 text-3xl text-center">signup non-pharmacist</h1>
 
             <form  class="h-screen" method="post" action="{% url 'patients:signup' %}">
+                {% csrf_token %}
                 <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="text" name="name" id="name" placeholder="firstname">
                 <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="text" name="username" id="username" placeholder="enter username">
                 <input class="w-full my-[10px] py-4 px-6 rounded-xl border-2" type="email" name="email" id="email" placeholder="enter email">

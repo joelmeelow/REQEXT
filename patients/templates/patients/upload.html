@@ -20,7 +20,8 @@
         <div class=" w-full sm:w-1/2 my-6 mx-auto p-6 rounded-xl h-screen ">
             <h1 class="mb-6 text-3xl text-center text-gray-600">Upload your passport</h1>
 
-            <form  class="h-screen" method="post" action="{% static 'patients:uploadimage' pharmodel.pk %}" enctype="multipart/form-data">
+            <form  class="h-screen" method="post" action="/uploadimage/{{ pharmmodel.id }}/" enctype="multipart/form-data">
+                {% csrf_token %}
 
                 {{ form.as_p }}
 

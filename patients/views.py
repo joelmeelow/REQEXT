@@ -25,7 +25,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import authenticate, login, logout
 from . tokens import generate_token
-#from .forms import ImageForm
+from .forms import ImageForm
 
 # Create your views here.
 
@@ -55,7 +55,7 @@ def index(request):
     username = current_user.username
     return render(request, 'patients/index.html', {'pharm': pharm, 'boxes': boxes})
 
-@csrf_exempt    
+
 def signup(request):
    
     if request.method == 'POST':
@@ -140,8 +140,8 @@ def signup(request):
                                        
 
     return render(request, 'patients/signup.html')
-'''
-@csrf_exempt
+
+
 def uploadimage(request, pk):
     image_location = Pharmmodels.objects.get(pk=pk)
     if request.method == 'POST':
@@ -149,15 +149,12 @@ def uploadimage(request, pk):
         if form.is_valid():
             form_image = form.cleaned_data['pharm_image']
             image_location.pharm_image = form_image
-            Pharmmodels.save()
-            redirect('patients:login')
-    else:
-        form = ImageForm()
-    return render(request, "patients/upload.html", {"form": form} )
+            image_location.save()
+            return redirect('patients:login')
+ 
 
-'''
 
-@csrf_exempt
+
 def pharmverify(request):
    
     if request.method == 'POST':
@@ -249,9 +246,9 @@ def pharmverify(request):
             email.fail_silently = True
             email.send()
             '''
-            #form = ImageForm()
-            #return render(request, "patients/upload.html", {"form": form, "pharmodel": pharmmodel} )
-            return redirect('patients:login')
+            form = ImageForm()
+            return render(request, "patients/upload.html", {"form": form, "pharmmodel": pharmmodel} )
+            #return redirect('patients:login')
                                     
 
     return render(request, 'patients/pharmlogin.html')
@@ -275,7 +272,7 @@ def activate(request,uidb64,token):
         return render(request,'activation_failed.html')
 
 
-@csrf_exempt
+
 def login(request):
      if request.method == 'POST':
           username = request.POST['username']
@@ -294,7 +291,7 @@ def login(request):
           
           
 
-@csrf_exempt
+
 @login_required
 def search(request):
     if request.method == 'POST':

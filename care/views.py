@@ -7,18 +7,20 @@ from django.http import HttpResponse, JsonResponse
 import json
 from rest_framework.decorators import api_view
 from .serializer import MessageSerializer
+from rest_framework.response import Response
 
   
-@csrf_exempt
+
+
 @api_view(['POST', 'GET'])
 def messageapi(request):
     if request.method == 'GET':
         queryset = PharmMessages.objects.all()
         serializer = MessageSerializer(queryset, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data, safe=False)
 
 
-@csrf_exempt
+
 @login_required
 def index(request, pk):
     
@@ -45,7 +47,7 @@ def index(request, pk):
 
 
 
-@csrf_exempt
+
 @login_required
 def phar(request, pk):
     
@@ -69,7 +71,7 @@ def phar(request, pk):
 
 
 
-@csrf_exempt
+
 @login_required
 def send(request):
     
@@ -98,7 +100,7 @@ def getMessages(request, pk):
     return JsonResponse({"messages":list(messages.values())})
 
     
-@csrf_exempt
+
 @login_required
 def inbox(request, pk):
     Item = get_object_or_404(Pharmmodels, pk=pk)

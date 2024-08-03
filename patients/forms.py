@@ -36,9 +36,7 @@ class SignupForm(UserCreationForm):
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
 
-"""
 class ImageForm(ModelForm):
     class Meta:
         model = Pharmmodels
         fields = ('pharm_image',)
- """
