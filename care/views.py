@@ -37,6 +37,7 @@ def index(request, pk):
         'converse': converse,
         'chat': chat,
         'pharms': pharms,
+        'messagee': messagee
         
         
         
