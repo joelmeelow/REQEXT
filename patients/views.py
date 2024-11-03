@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate as auth_auth
 from django.contrib import messages
 from django.contrib.auth.models import User
 from care.models import Pharmmodels
-from .models import Boxes
+from .models import Boxes, Project, Contact
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
@@ -27,7 +27,43 @@ from django.contrib.auth import authenticate, login, logout
 from . tokens import generate_token
 from .forms import ImageForm
 
-# Create your views here.
+
+from .models import Project
+from django.http import HttpResponseBadRequest
+
+
+def home(request):
+    projects = Project.objects.all()
+    return render(request, 'patients/home.html', {'projects': projects})
+
+
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # validation
+        if not name or not email or not message:
+            return HttpResponseBadRequest("All fields are required.")
+        contact = Contact.objects.create(name=name,email=email,message=message)
+        # Sending email
+        try:
+            send_mail(
+                f'Contact Form Submission from {name}',
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.CONTACT_EMAIL],
+                fail_silently=False,
+            )
+            return redirect('home') 
+        except Exception as e:
+            return HttpResponseBadRequest("An error occurred while sending your message.")
+
+    return redirect('home')
+
 
 def index(request):
     '''

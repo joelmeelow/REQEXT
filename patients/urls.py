@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from .views import home, contact_view
 
 from . import views
 
@@ -14,7 +14,8 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('search', views.search, name="search"),
     path('logout', views.logout, name="logout"),
-   
+    path('home/', home, name='home'),
+    path('submit-form/', contact_view, name='contact_view'),
     path('login/', views.login, name='login'),
     path('pharmverify/', views.pharmverify, name="pharmverify"),
     path('uploadimage/<int:pk>/', views.uploadimage, name='uploadimage'),

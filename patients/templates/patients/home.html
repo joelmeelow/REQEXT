@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ezeja Ebuka's Portfolio</title>
+    <meta name="description" content="Explore the portfolio of Ezeja Ebuka, a passionate backend developer specializing in Python and Go, with experience in data analysis.">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/style.css' %}"/>
+    <link rel="icon" href="{% static 'main/imgs/favicon.ico' %}" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; /* Use Roboto font */
+        }
+        
+        h1 {
+            font-size: 4vw; /* Smaller responsive font size */
+        }
+
+        h2 {
+            font-size: 3vw; /* Smaller responsive font size */
+        }
+
+        p {
+            font-size: 2.5vw; /* Smaller responsive font size */
+        }
+
+        #banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url("{% static 'main/imgs/profile-banner.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .slider {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-content {
+            display: flex;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+
+        .slider > div {
+            flex: 0 0 auto;
+        }
+
+        .arrow {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .arrow-left {
+            left: 10px;
+        }
+
+        .arrow-right {
+            right: 10px;
+        }
+
+        .info {
+            display: none; /* Initially hidden */
+            z-index: 20;
+            top: -60px; /* Adjust position */
+            transition: top 0.3s ease;
+        }
+
+        .info.show {
+            display: block;
+            top: 40px; /* Position it below the logo */
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5vw; /* Adjust for smaller screens */
+            }
+
+            h2 {
+                font-size: 3vw; /* Adjust for smaller screens */
+            }
+
+            p {
+                font-size: 2.5vw; /* Adjust for smaller screens */
+            }
+
+            .arrow {
+                display: none; /* Hide arrows on mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 6vw; /* Adjust for very small screens */
+            }
+
+            h2 {
+                font-size: 5vw; /* Adjust for very small screens */
+            }
+
+            p {
+                font-size: 4vw; /* Adjust for very small screens */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="banner" class="flex flex-col justify-between relative h-[500px] w-full text-white">
+        <nav class="flex justify-between p-4 bg-white bg-opacity-70" role="navigation">
+            <div class="flex items-center">
+                <span class="ml-2 text-lg font-bold">Ezeja Ebuka</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#projects" class="text-black hover:underline" aria-label="View my GitHub profile">github</a>
+                <a href="#contact" class="text-black hover:underline" aria-label="View my LinkedIn profile">linkedin</a>
+            </div>
+        </nav>
+        <div class="flex flex-col items-center justify-center h-full text-center">
+            <h1 class="text-4xl font-bold">Welcome to My Portfolio</h1>
+            <p class="mt-2 text-lg">Explore my web development projects and skills.</p>
+        </div>
+    </div>
+
+    <main>
+        <section id="about" class="py-10">
+            <h2 class="font-semibold text-center text-3xl">About Me</h2>
+            <p class="text-sm mt-4 mx-auto px-[10px]">Hello! I'm a passionate backend developer with a strong focus on Python and Go. With over three years of experience in Python backend development using Django, I've honed my skills in building robust and scalable applications. My journey also includes a year of working with Go, where I’ve embraced its efficiency and concurrency features to enhance my projects.
+
+            In addition to backend development, I have four years of experience in data analysis with Python. I enjoy transforming complex data into actionable insights and creating data-driven solutions that make a difference.
+
+            I thrive in collaborative environments and am always eager to tackle new challenges. Whether I’m developing a new feature, optimizing existing code, or analyzing data, I approach every project with enthusiasm and a commitment to quality.
+
+            Feel free to explore my portfolio to see some of the projects I've worked on!</p>
+        </section>
+
+        <section id="projects" class="py-10 relative">
+            <h2 class="text-center text-3xl font-semibold">My Projects</h2>
+            <div class="slider mt-5">
+                <div class="arrow arrow-left" id="prevArrow" aria-label="Previous project">&#10094;</div>
+                <div class="slider-content">
+                    {% for project in projects %}
+                    <div class="flex flex-col bg-white border-2 border-gray-300 min-w-[200px] mx-2 rounded-lg shadow relative">
+                        <div class="bg-gray-200">
+                            {% if project.image %}
+                            <img class="w-full h-40 object-cover rounded-t-lg" src="{{ project.image.url }}" alt="{{ project.title }} image">
+                            {% endif %}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold">{{ project.title }}</h3>
+                            <p class="text-sm text-gray-600">{{ project.description|truncatechars:50 }}</p>
+                            <div class="logo cursor-pointer mt-2" onclick="toggleInfo(event)">🔧</div>
+                            <a href="{{ project.link }}" class="mt-2 block text-center bg-blue-500 text-white rounded p-1">View Project</a>
+                        </div>
+                        <div class="text-sm info hidden absolute bg-white border border-gray-300 rounded p-2 shadow-lg w-3/4 left-1/2 transform -translate-x-1/2">
+                            <p class="font-semibold text-sm">Tech Stack:</p>
+                            <p>{{ project.tech_stack }}</p>
+                            <p class="mt-1 text-sm">{{ project.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="arrow arrow-right" id="nextArrow" aria-label="Next project">&#10095;</div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-10">
+            <h2 class="text-center text-3xl font-semibold">Contact Me</h2>
+            <form action="{% url 'patients:contact_view' %}" method="POST" class="flex flex-col items-center mt-6">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Your Name" required class="rounded-lg w-full max-w-xs p-2 mb-2 border">
+                <input type="email" name="email" placeholder="Your Email" required class="rounded-lg w-full max-w-xs p-2 mb-2 border">
+                <textarea name="message" placeholder="Your Message" required class="rounded-lg w-full max-w-xs p-2 mb-2 border"></textarea>
+                <button type="submit" class="bg-blue-500 text-white rounded-lg p-2 transition duration-300 hover:bg-blue-600">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-black w-full py-4 text-white text-center">
+        <p>&copy; {{ current_year }} Ezeja Ebuka Charles. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const sliderContent = document.querySelector('.slider-content');
+        const prevArrow = document.getElementById('prevArrow');
+        const nextArrow = document.getElementById('nextArrow');
+        const sliderItems = document.querySelectorAll('.slider-content > div');
+        const itemWidth = sliderItems[0].offsetWidth + 16; // Include margin
+        let scrollIndex = 0;
+
+        const updateArrowVisibility = () => {
+            prevArrow.style.display = scrollIndex === 0 ? 'none' : 'block';
+            nextArrow.style.display = scrollIndex >= sliderItems.length - 1 ? 'none' : 'block';
+        };
+
+        const scrollSlider = (direction) => {
+            scrollIndex += direction;
+            if (scrollIndex < 0) {
+                scrollIndex = 0;
+            }
+            if (scrollIndex >= sliderItems.length) {
+                scrollIndex = sliderItems.length - 1;
+            }
+            sliderContent.style.transform = `translateX(-${scrollIndex * itemWidth}px)`;
+            updateArrowVisibility();
+        };
+
+        prevArrow.addEventListener('click', () => scrollSlider(-1));
+        nextArrow.addEventListener('click', () => scrollSlider(1));
+
+        // Touch events for mobile
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        sliderContent.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - sliderContent.getBoundingClientRect().left;
+            scrollLeft = sliderContent.scrollLeft;
+        });
+
+        sliderContent.addEventListener('mouseleave', () => isDown = false);
+        sliderContent.addEventListener('mouseup', () => isDown = false);
+        sliderContent.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - sliderContent.getBoundingClientRect().left;
+            const walk = (x - startX);
+            sliderContent.scrollLeft = scrollLeft - walk;
+        });
+
+        sliderContent.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].clientX - sliderContent.getBoundingClientRect().left;
+            scrollLeft = sliderContent.scrollLeft;
+        });
+
+        sliderContent.addEventListener('touchend', () => isDown = false);
+        sliderContent.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.touches[0].clientX - sliderContent.getBoundingClientRect().left;
+            const walk = x - startX;
+            sliderContent.scrollLeft = scrollLeft - walk;
+        });
+
+        window.addEventListener('resize', updateArrowVisibility);
+        updateArrowVisibility(); // Initial arrow visibility check
+
+        function toggleInfo(event) {
+            event.stopPropagation(); // Prevent body click event
+            const info = event.currentTarget.closest('.relative').querySelector('.info');
+            info.classList.toggle('show');
+        }
+
+        // Hide info when clicking anywhere else on the body
+        document.body.addEventListener('click', function() {
+            const allInfos = document.querySelectorAll('.info');
+            allInfos.forEach(info => {
+                info.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>

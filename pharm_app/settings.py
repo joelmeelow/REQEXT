@@ -93,8 +93,8 @@ WSGI_APPLICATION = 'pharm_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'newdb', 
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pharm_app', 
         'USER': 'postgres',
         'PASSWORD': '16a9j63p',
         'HOST': '127.0.0.1', 
